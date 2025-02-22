@@ -1,4 +1,4 @@
-[![IMG-2957.jpg](https://i.postimg.cc/Hn4csXj9/IMG-2957.jpg)](https://postimg.cc/wRMTwtX1)
+[![IMG-2971.jpg](https://i.postimg.cc/wTHmmVgC/IMG-2971.jpg)](https://postimg.cc/nMRr8qs2)
 
 # About
 
