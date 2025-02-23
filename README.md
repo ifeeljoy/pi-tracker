@@ -2,7 +2,11 @@
 
 # About
 
-A Discord bot that displays and provides information about the Pi Network. This open source code may not always contain all of the bot's current features.
+A Discord bot that provides information about the Pi Network. 
+
+# Disclaimer
+
+This repository may not always be up to date with the current version of the bot. The changelog may also be inconsistent with the open source version of the bot. If you prefer frequent updates and new features as they come, I recommend [inviting the official (and now verified!) bot.](https://discord.com/oauth2/authorize?client_id=1342105252484350012)
 
 # Dependencies
 Axios 1.6.7
