@@ -2,7 +2,7 @@
 
 # About
 
-A Discord bot that will update its nickname with the current price of the Pi Network cryptocurrency token every minute and the 24 hour % change every five minutes. This open source code may not always contain all of the bot's current features.
+A Discord bot that displays and provides information about the Pi Network. This open source code may not always contain all of the bot's current features.
 
 # Dependencies
 Axios 1.6.7
