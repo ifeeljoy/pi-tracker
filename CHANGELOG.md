@@ -50,7 +50,7 @@
 ## [2.3.6] - 2025-02-22
 - Updated `/help` title to **"Pi Tracker — for pioneers, by pioneers"**.  
 
-## [2.3.7] - 2025-02-23
+## [2.4.0] - 2025-02-23
 - Renamed `/earn` to `/mining`.
 - ~~Reduced bot name update interval from 1 minute to 30 seconds.~~
 - Reducted bot status and description update interval from 5 minutes to 1 minute.
@@ -61,5 +61,8 @@ Pi Tracker is now a verified bot/app
 ## 2025-02-24
 Pi Tracker is now approved on top.gg
 
-## [2.3.8] - 2025-02-24  
+## [2.4.1] - 2025-02-24  
 - Updated `/vote` command to provide the top.gg voting link.
+
+## [2.5.0] - 2025-02-24
+- Added Pionex to `/exchanges` (previously only had Pionex.us)
