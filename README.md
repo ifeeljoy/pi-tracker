@@ -1,4 +1,6 @@
-[![IMG-2971.jpg](https://i.postimg.cc/wTHmmVgC/IMG-2971.jpg)](https://postimg.cc/nMRr8qs2)
+[![IMG-3046.jpg](https://i.postimg.cc/44cYs6rn/IMG-3046.jpg)](https://postimg.cc/QVX8qTNr)
+
+[![IMG-3047.jpg](https://i.postimg.cc/W1zjbjhS/IMG-3047.jpg)](https://postimg.cc/nCyN0yKQ)
 
 # About
 
