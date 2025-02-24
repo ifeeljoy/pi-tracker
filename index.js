@@ -54,7 +54,7 @@ async function updateBotInfo() {
 
         // Update bot's bio
         await client.application.edit({
-            description: `v2.0.13
+            description: `v2.3.8
 1 Pi: $${price}`
         });
 
@@ -114,8 +114,8 @@ client.on('interactionCreate', async (interaction) => {
         await interaction.reply({ embeds: [embed] });
     } else if (commandName === 'vote') {
         const embed = new EmbedBuilder()
-            .setTitle('Vote (Coming Soon!)')
-            .setDescription('[Vote for the bot](https://top.gg)')
+            .setTitle('Vote')
+            .setDescription('[Vote for the bot](https://top.gg/bot/1342105252484350012/vote)')
             .setColor(0x4C2F71);
         await interaction.reply({ embeds: [embed] });
     } else if (commandName === 'ping') {
