@@ -146,7 +146,7 @@ client.on('interactionCreate', async (interaction) => {
 [OKX](https://www.okx.com/price/pi-network-pi)
 [Bitget](https://www.bitget.com/price/pi-network)
 [Gate.io](https://www.gate.io/price/pi-network-pi)
-[Pionex.us](https://www.pionex.us/trade/PI_USDT)
+<:nPionex:1342941462710718555> [Pionex](https://www.pionex.com/trade/PI_USDT)/[Pionex.us](https://www.pionex.us/trade/PI_USDT)
 [MEXC](https://www.mexc.com/price/PI)
 
 Only exchanges verified through [Pi Network's KYB](https://minepi.com/kyb-list/#VerifiedBusinesses) will be listed here.`)
