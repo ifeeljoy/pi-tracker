@@ -66,3 +66,32 @@ Pi Tracker is now approved on top.gg
 
 ## [2.5.0] - 2025-02-24
 - Added Pionex to `/exchanges` (previously only had Pionex.us)
+
+## [2.5.1] - 2025-02-24
+- Increased bot name, status, and description update interval from 1 minute to 2 minutes due to rate limiting restrictions.
+
+## [3.0.0] - 2025-02-24
+- Removed automatic nickname updates to reduce rate limiting and allow for more commands.  
+- Added `/fdv` command to view Pi's fully diluted valuation.  
+- Added `/volume` command to view Pi's 24-hour trading volume.  
+- Added `/wallet` command to view Pi wallet balances.
+- Added `/changelog` command to show the most recent version and bot changes.
+
+## [3.1.0] - 2025-02-24
+- Added percent change to bot bio.  
+- Added price to bot status.  
+-  Added percent change display to `/price`.  
+- Added Pi symbol (π) to more commands.  
+- Improved `/wallet` by adding commas to balances for better readability.
+
+## [3.1.1] - 2025-02-25
+- Fixed incorrect error message in `/wallet`. It now correctly asks users to provide a wallet address instead of incorrectly stating that the bot is rate-limited.
+
+## [3.2.0] - 2025-02-25
+- Added Pi as a new donation method in `/donate`.
+
+## [3.2.1] - 2025-03-01
+- Updated `/mining` to display the number of days required to earn 1 Pi alongside hours.
+
+## [3.2.2] - 2025-03-09
+- Reverted update interval to 1 minute
