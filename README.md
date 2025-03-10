@@ -1,6 +1,6 @@
-[![IMG-3046.jpg](https://i.postimg.cc/44cYs6rn/IMG-3046.jpg)](https://postimg.cc/QVX8qTNr)
+[![IMG-3392.jpg](https://i.postimg.cc/yxKNNZhH/IMG-3392.jpg)](https://postimg.cc/34LhSWbS)
 
-[![IMG-3047.jpg](https://i.postimg.cc/W1zjbjhS/IMG-3047.jpg)](https://postimg.cc/nCyN0yKQ)
+[![IMG-3393.jpg](https://i.postimg.cc/Tw7kdVvy/IMG-3393.jpg)](https://postimg.cc/47cvwhdZ)
 
 # About
 
