@@ -6,19 +6,24 @@ const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
 });
 
-const PREFIX = 'pi!';
 const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd&include_24hr_change=true';
-const MINING_RATE = parseFloat(process.env.MINING_RATE); // Read mining rate from .env
+const COINGECKO_API_DETAIL_URL = 'https://api.coingecko.com/api/v3/coins/pi-network';
+const MINING_RATE = parseFloat(process.env.MINING_RATE);
 
+// Slash command name and description
 const commands = [
     new SlashCommandBuilder().setName('price').setDescription('Get the current price of Pi Network.'),
     new SlashCommandBuilder().setName('help').setDescription('Show the list of available commands.'),
-    new SlashCommandBuilder().setName('support').setDescription('Get a link to the support server.'),
-    new SlashCommandBuilder().setName('donate').setDescription('Help keep the bot running.'),
-    new SlashCommandBuilder().setName('vote').setDescription('Vote for the bot on top.gg'),
     new SlashCommandBuilder().setName('ping').setDescription('Check bot latency.'),
-    new SlashCommandBuilder().setName('mining').setDescription('Displays the current mining rates.'), // Updated command description
-    new SlashCommandBuilder().setName('exchanges').setDescription('Get a list of verified exchanges where Pi is available.')
+    new SlashCommandBuilder().setName('mining').setDescription('Displays the current mining rates.'),
+    new SlashCommandBuilder().setName('exchanges').setDescription('Get a list of verified exchanges where Pi is available.'),
+    new SlashCommandBuilder().setName('wallet').setDescription('Check wallet balance by providing a wallet address.')
+        .addStringOption(option =>
+            option.setName('wallet')
+                .setDescription('Wallet address to check balance for')
+                .setRequired(true)),
+    new SlashCommandBuilder().setName('fdv').setDescription('Get the Fully Diluted Valuation of Pi Network.'),
+    new SlashCommandBuilder().setName('volume').setDescription('Get the 24-hour trading volume of Pi Network.')
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
@@ -46,24 +51,18 @@ async function updateBotInfo() {
         console.log('API Response:', JSON.stringify(data, null, 2));
         console.log(`Price: ${price}, 24h Change: ${change24h}`);
 
-        // Update bot's presence
+        // Update bot's status
         client.user.setPresence({
-            activities: [{ name: `Pi Network (24h: ${percentChange})`, type: ActivityType.Playing }],
+            activities: [{ name: `Pi Network $${price} (${percentChange})`, type: ActivityType.Watching }],
             status: 'online'
         });
 
         // Update bot's bio
         await client.application.edit({
-            description: `v2.3.8
-1 Pi: $${price}`
+            description: `Pi: $${price} (${percentChange})`
         });
 
-        // Update bot's display name
-        client.guilds.cache.forEach(guild => {
-            guild.members.cache.get(client.user.id).setNickname(`Pi: $${price}`);
-        });
-
-        console.log(`Updated status, display name, and bio: Price - $${price}, 24h Change - ${percentChange}`);
+        console.log(`Updated status and bio: Price - $${price}, 24h Change - ${percentChange}`);
     } catch (error) {
         console.error('Failed to update bot information:', error.message);
     }
@@ -73,8 +72,7 @@ client.once('ready', async () => {
     console.log(`Logged in as ${client.user.tag}`);
     await registerCommands();
     updateBotInfo();
-    setInterval(updateBotInfo, 180000); // Update status and bio every 3 minutes
-    setInterval(updateBotInfo, 60000); // Update display name every 60 seconds
+    setInterval(updateBotInfo, 60000); // Update status and bio every 60 seconds
 });
 
 client.on('interactionCreate', async (interaction) => {
@@ -86,36 +84,21 @@ client.on('interactionCreate', async (interaction) => {
         try {
             const response = await axios.get(COINGECKO_API_URL);
             const price = response.data['pi-network'].usd;
+            const change24h = response.data['pi-network'].usd_24h_change !== undefined ? response.data['pi-network'].usd_24h_change.toFixed(2) : 'N/A';
+            const percentChange = change24h > 0 ? `+${change24h}%` : `${change24h}%`;
+
             const embed = new EmbedBuilder()
                 .setTitle('Pi Network Price')
-                .setDescription(`The current price of Pi Network is **$${price} USD**.`)
+                .setDescription(`The current price of Pi Network is **$${price} USD**. (**${percentChange}**)`)
                 .setColor(0x4C2F71);
             await interaction.reply({ embeds: [embed] });
         } catch (error) {
-            await interaction.reply('Failed to fetch price. Please try again later.');
+            await interaction.reply('The bot is currently rate limited. Please try again in 1 minute.');
         }
     } else if (commandName === 'help') {
         const embed = new EmbedBuilder()
             .setTitle('Help Menu')
-            .setDescription('**Available Commands:** `/price`, `/help`, `/support`, `/donate`, `/vote`, `/ping`, `/mining`, `/exchanges`')
-            .setColor(0x4C2F71);
-        await interaction.reply({ embeds: [embed] });
-    } else if (commandName === 'support') {
-        const embed = new EmbedBuilder()
-            .setTitle('Support')
-            .setDescription('For support, please visit [here](https://discord.gg/kJ8eRH4kfe)')
-            .setColor(0x4C2F71);
-        await interaction.reply({ embeds: [embed] });
-    } else if (commandName === 'donate') {
-        const embed = new EmbedBuilder()
-            .setTitle('Donate')
-            .setDescription('[$3 a month keeps the bot running!](https://buymeacoffee.com/mozzarella)')
-            .setColor(0x4C2F71);
-        await interaction.reply({ embeds: [embed] });
-    } else if (commandName === 'vote') {
-        const embed = new EmbedBuilder()
-            .setTitle('Vote')
-            .setDescription('[Vote for the bot](https://top.gg/bot/1342105252484350012/vote)')
+            .setDescription('`/price`, `/help`, `/ping`, `/mining`, `/exchanges`, `/fdv`, `/volume`, `/wallet`')
             .setColor(0x4C2F71);
         await interaction.reply({ embeds: [embed] });
     } else if (commandName === 'ping') {
@@ -130,14 +113,16 @@ client.on('interactionCreate', async (interaction) => {
             const response = await axios.get(COINGECKO_API_URL);
             const price = response.data['pi-network'].usd;
             const hoursToEarnOnePi = (1 / MINING_RATE).toFixed(2);
+            const daysToEarnOnePi = (hoursToEarnOnePi / 24).toFixed(2);
             const hoursToEarnOneDollar = (1 / (price * MINING_RATE)).toFixed(2);
+            const daysToEarnOneDollar = (hoursToEarnOneDollar / 24).toFixed(2);
             const embed = new EmbedBuilder()
                 .setTitle('Mining Rate')
-                .setDescription(`The current mining base rate is **${MINING_RATE} π/hour**.\n≈ **${hoursToEarnOnePi} hours** to earn 1 Pi.\n≈ **${hoursToEarnOneDollar} hours** to earn $1 of Pi.`)
+                .setDescription(`The current base rate for mining is **${MINING_RATE} π/hour**.\n≈ **${hoursToEarnOnePi} hours (${daysToEarnOnePi} days)** to earn 1 π.\n≈ **${hoursToEarnOneDollar} hours (${daysToEarnOneDollar} days)** to earn 1 USD.`)
                 .setColor(0x4C2F71);
             await interaction.reply({ embeds: [embed] });
         } catch (error) {
-            await interaction.reply('Failed to fetch price. Please try again later.');
+            await interaction.reply('The bot is currently rate limited. Please try again in 1 minute.');
         }
     } else if (commandName === 'exchanges') {
         const embed = new EmbedBuilder()
@@ -146,12 +131,49 @@ client.on('interactionCreate', async (interaction) => {
 [OKX](https://www.okx.com/price/pi-network-pi)
 [Bitget](https://www.bitget.com/price/pi-network)
 [Gate.io](https://www.gate.io/price/pi-network-pi)
-<:nPionex:1342941462710718555> [Pionex](https://www.pionex.com/trade/PI_USDT)/[Pionex.us](https://www.pionex.us/trade/PI_USDT)
+[Pionex](https://www.pionex.com/trade/PI_USDT)/[Pionex.us](https://www.pionex.us/trade/PI_USDT)
 [MEXC](https://www.mexc.com/price/PI)
 
 Only exchanges verified through [Pi Network's KYB](https://minepi.com/kyb-list/#VerifiedBusinesses) will be listed here.`)
             .setColor(0x4C2F71);
         await interaction.reply({ embeds: [embed] });
+    } else if (commandName === 'wallet') {
+        const walletAddress = interaction.options.getString('wallet');
+        try {
+            const response = await axios.get(`https://api.mainnet.minepi.com/accounts/${walletAddress}`);
+            const walletBalance = parseFloat(response.data.balances.find(balance => balance.asset_type === 'native').balance).toLocaleString();
+            const embed = new EmbedBuilder()
+                .setTitle('Wallet Balance')
+                .setDescription(`The wallet balance for address ${walletAddress} is **${walletBalance} π**.`)
+                .setColor(0x4C2F71);
+            await interaction.reply({ embeds: [embed] });
+        } catch (error) {
+            await interaction.reply('Please provide a valid Pi Network wallet address.');
+        }
+    } else if (commandName === 'fdv') {
+        try {
+            const response = await axios.get(COINGECKO_API_DETAIL_URL);
+            const fdv = response.data.market_data.fully_diluted_valuation.usd.toLocaleString();
+            const embed = new EmbedBuilder()
+                .setTitle('Fully Diluted Valuation')
+                .setDescription(`The Fully Diluted Valuation (FDV) of Pi Network is **$${fdv} USD**.`)
+                .setColor(0x4C2F71);
+            await interaction.reply({ embeds: [embed] });
+        } catch (error) {
+            await interaction.reply('The bot is currently rate limited. Please try again in 1 minute.');
+        }
+    } else if (commandName === 'volume') {
+        try {
+            const response = await axios.get(COINGECKO_API_DETAIL_URL);
+            const volume = response.data.market_data.total_volume.usd.toLocaleString();
+            const embed = new EmbedBuilder()
+                .setTitle('24-hour Trading Volume')
+                .setDescription(`The 24-hour trading volume of Pi Network is **$${volume} USD**.`)
+                .setColor(0x4C2F71);
+            await interaction.reply({ embeds: [embed] });
+        } catch (error) {
+            await interaction.reply('The bot is currently rate limited. Please try again in 1 minute.');
+        }
     }
 });
 
