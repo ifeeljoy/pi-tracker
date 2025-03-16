@@ -192,7 +192,7 @@ Only exchanges verified through [Pi Network's KYB](https://minepi.com/kyb-list/#
         const totalPercent = ((totalSupply / maxSupply) * 100).toFixed(2);
 
         const embed = new EmbedBuilder()
-            .setTitle('<:nPiNetwork:1342885769416671244> Pi Network Supply')
+            .setTitle('Pi Network Supply')
             .setDescription(
                 `**Circulating Supply:** ${circulatingSupply.toLocaleString()} π (${circulatingPercent}% of max)\n` +
                 `**Total Supply:** ${totalSupply.toLocaleString()} π (${totalPercent}% of max)\n` +
