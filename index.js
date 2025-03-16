@@ -175,6 +175,15 @@ Only exchanges verified through [Pi Network's KYB](https://minepi.com/kyb-list/#
         } catch (error) {
             await interaction.reply('The bot is currently rate limited. Please try again in 1 minute.');
         }
+        }    else if (commandName === 'supply') {
+    try {
+        const response = await axios.get(COINGECKO_API_DETAIL_URL);
+        const marketData = response.data.market_data;
+
+        const circulatingSupply = marketData.circulating_supply;
+        const totalSupply = marketData.total_supply;
+        const maxSupply = marketData.max_supply;
+
                 if (!circulatingSupply || !totalSupply || !maxSupply) {
             return await interaction.reply('Supply data is currently unavailable.');
         }
