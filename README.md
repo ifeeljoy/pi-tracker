@@ -27,11 +27,13 @@ git clone https://github.com/ifeeljoy/pi-tracker.git
 ```
 
 Install dependencies.
+
 ```
 npm install discord.js dotenv axios
 ```
 
 Rename '.env-example' to '.env' and add your bot token and client ID.
+
 ```
 // Your Discord bot's token.
 BOT_TOKEN=here
