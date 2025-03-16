@@ -23,7 +23,8 @@ const commands = [
                 .setDescription('Wallet address to check balance for')
                 .setRequired(true)),
     new SlashCommandBuilder().setName('fdv').setDescription('Get the Fully Diluted Valuation of Pi Network.'),
-    new SlashCommandBuilder().setName('volume').setDescription('Get the 24-hour trading volume of Pi Network.')
+    new SlashCommandBuilder().setName('volume').setDescription('Get the 24-hour trading volume of Pi Network.'),
+    new SlashCommandBuilder().setName('supply').setDescription('Get the supply details of Pi Network.')
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
@@ -174,6 +175,25 @@ Only exchanges verified through [Pi Network's KYB](https://minepi.com/kyb-list/#
         } catch (error) {
             await interaction.reply('The bot is currently rate limited. Please try again in 1 minute.');
         }
+                if (!circulatingSupply || !totalSupply || !maxSupply) {
+            return await interaction.reply('Supply data is currently unavailable.');
+        }
+
+        const circulatingPercent = ((circulatingSupply / maxSupply) * 100).toFixed(2);
+        const totalPercent = ((totalSupply / maxSupply) * 100).toFixed(2);
+
+        const embed = new EmbedBuilder()
+            .setTitle('<:nPiNetwork:1342885769416671244> Pi Network Supply')
+            .setDescription(
+                `**Circulating Supply:** ${circulatingSupply.toLocaleString()} π (${circulatingPercent}% of max)\n` +
+                `**Total Supply:** ${totalSupply.toLocaleString()} π (${totalPercent}% of max)\n` +
+                `**Max Supply:** ${maxSupply.toLocaleString()} π`
+            )
+            .setColor(0x4C2F71);
+
+        await interaction.reply({ embeds: [embed] });
+    } catch (error) {
+        await interaction.reply('The bot is currently rate limited. Please try again in 1 minute.');
     }
 });
 
