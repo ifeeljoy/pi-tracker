@@ -6,6 +6,8 @@
 
 A Discord bot that provides information about the Pi Network. 
 
+For a translated version of this bot in Spanish, please visit [Pi Tracker ES](https://github.com/ifeeljoy/pi-tracker-es/)
+
 # Disclaimer
 
 This repository may not always be up to date with the current version of the bot. If you prefer frequent updates and new features as they come, I recommend [inviting the (now verified!) bot.](https://discord.com/oauth2/authorize?client_id=1342105252484350012)
