@@ -4,7 +4,7 @@
 
 # About
 
-A Discord bot that provides information about the Pi Network. 
+A Discord bot that provides real-time (~1 minute) price tracking, wallet balances, mining rates, and other relevant information about the Pi Network. 
 
 For a translated version of this bot in Spanish, please visit [Pi Tracker ES](https://github.com/ifeeljoy/pi-tracker-es/)
 
@@ -56,14 +56,14 @@ node index.js
 # License
 This project is licensed under the GNU General Public License v3.0. See the LICENSE file for more details.
 
-# Support
+# Contact
 
-https://pi-tracker.xyz/
+https://discord.gg/kJ8eRH4kfe
 
 # Buy Me A Coffee
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/mozzarella)
 
-$3 a month keeps the bot's server running.
+$5 a month keeps the bot's server running.
 
 # Invite the bot to your server
 [Invite Pi Tracker](https://discord.com/oauth2/authorize?client_id=1342105252484350012)
