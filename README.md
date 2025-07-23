@@ -2,7 +2,6 @@
 
 A Discord bot that provides real-time (~1 minute) price tracking, wallet balances, mining rates, and other relevant information about the Pi Network. 
 
-Don't want to self-host? Use the hosted version here: [link](https://discord.com/oauth2/authorize?client_id=1342105252484350012)
 
 # Dependencies
 Axios 1.6.7
