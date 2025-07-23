@@ -4,7 +4,7 @@ A Discord bot that provides real-time (~1 minute) price tracking, wallet balance
 
 # Hosting
 
-If you don't want to self host and don't mind paying for a cheap alterative ($1.50/month), use [this guide](https://github.com/ifeeljoy/bot-host-guide) for setup.
+If you don't want to self host and don't mind paying for a simpler and cheap alterative ($1.50/month), use [this guide](https://github.com/ifeeljoy/bot-host-guide) for setup.
 
 # Dependencies
 Axios 1.6.7
