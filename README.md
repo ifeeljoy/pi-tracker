@@ -2,7 +2,9 @@
 
 A Discord bot that provides real-time (~1 minute) price tracking, wallet balances, mining rates, and other relevant information about the Pi Network. 
 
-# Hosting
+[Invite the bot to your server](https://pi-tracker.github.io)
+
+This is not the most recent version of the bot. This is a working version but it is outdated and does not contain all of the bot's current features.
 
 If you don't want to self host and don't mind paying for a simpler and cheap alterative ($1.50/month), use [this guide](https://github.com/ifeeljoy/bot-host-guide) for setup.
 
